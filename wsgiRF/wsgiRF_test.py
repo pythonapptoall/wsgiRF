@@ -5,7 +5,7 @@ from copy import copy
 
 from pkg.tests_app import tests
 from pkg.common.settings import SETTINGS
-from start_app import get_host_name
+from wsgiRF import get_host_name
 
 TEST_SETTINGS = copy(SETTINGS)
 
