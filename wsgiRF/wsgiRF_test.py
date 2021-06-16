@@ -4,10 +4,11 @@
 
 from copy import copy
 
-from .pkg.tests_app import tests, settings
+from .pkg.tests_app import tests
+from .pkg.tests_app.settings import SETTINGS
 from .pkg.common.utils import Utils
 
-TEST_SETTINGS = copy(settings)
+TEST_SETTINGS = copy(SETTINGS)
 
 
 def form_path_for_test():
