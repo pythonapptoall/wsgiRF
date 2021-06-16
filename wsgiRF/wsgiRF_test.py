@@ -5,7 +5,7 @@ from copy import copy
 
 from pkg.tests_app import tests
 from pkg.common.settings import SETTINGS
-from wsgiRF import get_host_name
+from pkg.common.utils import Utils
 
 TEST_SETTINGS = copy(SETTINGS)
 
@@ -18,7 +18,7 @@ def form_path_for_test():
     host = TEST_SETTINGS['ADDRESS']['HOST']
     port = TEST_SETTINGS['ADDRESS']['PORT']
 
-    return f"http://{get_host_name(host)}:{port}/"
+    return f"http://{Utils.get_host_name(host)}:{port}/"
 
 
 TEST_PATH = form_path_for_test()

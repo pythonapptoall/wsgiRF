@@ -3,22 +3,22 @@
 """
 
 
-class FrontOn:
+class MidleWareOn:
     """
-    Используется как декоратор front контроллеров, которые должны использоваться.
+    Используется как декоратор midleware, которое должны использоваться.
     Пример использования:
-        @FrontOn()
-    Формирует список fronts, содержащий ссылки на классы используемых front контроллеров:
+        @MidleWareOn()
+    Формирует список midlewares, содержащий ссылки на классы используемых midleware:
          [
-                front_controller_set_current_date,
-                front_controller_set_secret_key,
+                midleware_set_current_date,
+                midleware_set_secret_key,
          ]
-    Через @classmethod собирает список со всех экземпляров класса FrontOn в один список,
+    Через @classmethod собирает список со всех экземпляров класса MidleWareOn в один список,
     методы класса позволяют работать с ним через имя класса, не вызывая его экземпляров:
-        FrontOn.get_front_controllers_list()
+        MidleWareOn.get_front_controllers_list()
     """
 
-    fronts = []
+    midlewares = []
 
     def __call__(self, cls):
         """
@@ -27,12 +27,12 @@ class FrontOn:
         Добавляем вызвавший метод в список для применения
         """
 
-        FrontOn.fronts += [cls]
+        MidleWareOn.midlewares += [cls]
 
     @classmethod
-    def get_front_controllers_list(cls):
+    def get_middleware_list(cls):
         """
         Вернет список доступных фронт контроллеров
         """
 
-        return cls.fronts
+        return cls.midlewares

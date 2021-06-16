@@ -33,6 +33,15 @@ class Utils:
         sys.path.append(sys.path[0] + "/..")
         sys.path.append(sys.path[0] + "/.")
 
+    @staticmethod
+    def get_host_name(host):
+        """
+        При пустом значении имени хоста сервер запускается на хосте
+        по умолчанию - localhost. Учтем это при выводе сервисного уведомления
+        """
+
+        return host if host != '' else 'localhost'
+
 
 class Json:
     """

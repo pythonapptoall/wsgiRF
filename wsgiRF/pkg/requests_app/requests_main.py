@@ -37,7 +37,7 @@ class Requests:
         Выводит системное сообщение с результатами обработки запроса
         """
 
-        logger = Logger.get_logger()
+        logger = Logger.get_logger('main')
 
         str_path = f", по адресу: {path}"
         message = (f'Нам пришёл post-запрос: {request["post_data"]}{str_path}'

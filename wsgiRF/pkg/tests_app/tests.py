@@ -33,7 +33,7 @@
 
 import requests
 
-from ..d_base_app.d_base import open_db_connection
+from .d_base_app.d_base import open_db_connection
 
 
 def test_get_requests(request_path):

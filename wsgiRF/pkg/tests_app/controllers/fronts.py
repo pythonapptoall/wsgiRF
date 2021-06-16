@@ -8,7 +8,7 @@
 
 from datetime import date
 
-from .decorators.front import FrontOn
+from controllers_app.decorators.front import FrontOn
 
 
 @FrontOn()

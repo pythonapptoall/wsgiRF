@@ -2,12 +2,9 @@
 Основное программное ядро проекта
 """
 
-from copy import copy
-
-from .controllers_app import pages, fronts
-from .controllers_app.decorators.page import AppRoutes
 from .common.utils import Utils, Json
 from .common.debugger import Debug
+from .common.logger import Logger
 from .requests_app.requests_main import Requests
 
 
@@ -19,13 +16,15 @@ class ProjectMainApp:
     запрос для дальнейшей работы фреймворка и создает ответ серверу
     """
 
-    def __init__(self, settings):
+    def __init__(self, settings, middle_ware_list, routes_dict):
         """
         При создании экземпляра инициирует параметры работы приложения данными из файла настроек
-        Также формирует список доступных фронт контроллеров
+        Также формирует список доступных middle_ware и роутов
         """
-        self.settings = copy(settings)
-        self.front_controllers_list = fronts.FrontOn.get_front_controllers_list()
+        self.settings = settings
+        self.middle_ware_list = middle_ware_list
+        self.routes_dict = routes_dict
+        self.logger = Logger.get_logger('main')
 
     @Debug(critical_time=0, name='main_app.__call__')
     def __call__(
@@ -75,7 +74,7 @@ class ProjectMainApp:
         Данные передадутся в Page контроллер для формирования окончательного ответа
         """
         data = {}
-        for controller in self.front_controllers_list:
+        for controller in self.middle_ware_list:
             updated_data = controller(data)
             data = Utils.to_unit_dictionaries_in_one_dictionary(
                 data, updated_data)
@@ -87,7 +86,7 @@ class ProjectMainApp:
         """
 
         correct_path = self.check_path(path)
-        return AppRoutes.get_page_controller_from_route(
+        return self.get_page_controller_from_route(
             route_path=correct_path, request_method=request_method)
 
     @staticmethod
@@ -96,6 +95,19 @@ class ProjectMainApp:
 
         correct_path = f'{path}/' if not path.endswith('/') else f'{path}'
         return correct_path
+
+    def get_page_controller_from_route(self, route_path, request_method):
+        """Получим контроллер для дальнейшей работы по типу запроса и пути из запроса """
+
+        controllers_by_path = self.routes_dict[request_method]
+
+        if route_path in controllers_by_path:
+            controller = controllers_by_path[route_path]
+        else:
+            controller = self.routes_dict['404']['NotFound']
+            self.logger.log(f'Путь {route_path} не найден')
+            # print(f'log--> Путь {route_path} не найден')
+        return controller
 
     @staticmethod
     def get_response(controller, request, response_function):

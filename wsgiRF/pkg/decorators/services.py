@@ -2,9 +2,9 @@
 Модуль содержит декораторы для формирования роутеров приложения
 """
 
-from ...common.logger import Logger
+# from ...common.logger import Logger
 
-LOGGER = Logger.get_logger()
+# LOGGER = Logger.get_logger()
 
 
 class AppRoutes:
@@ -58,6 +58,11 @@ class AppRoutes:
         if self.request_type not in self.routes:
             self.routes[self.request_type] = {}
 
+    @staticmethod
+    def get_routes():
+        """ Возвращает словарь роутеров проекта """
+        return AppRoutes.routes
+
     @classmethod
     def add_into_routes(cls, request_type, route, ctrl):
         """
@@ -77,7 +82,8 @@ class AppRoutes:
             controller = controllers_by_path[route_path]
         else:
             controller = cls.routes['404']['NotFound']
-            LOGGER.log(f'Путь {route_path} не найден')
+            # LOGGER.log(f'Путь {route_path} не найден')
+            print(f'log--> Путь {route_path} не найден')
         return controller
 
 
@@ -88,7 +94,8 @@ class GetRequest(AppRoutes):
 
     def __init__(self, route):
         """
-        Сохраняем значение переданного параметра
+        Сохраняет контроллер, который будет запускаться при запросе пути,
+        указанного в переменной 'route' при GET запросах
         """
 
         self.request_type = 'GET'
@@ -102,7 +109,8 @@ class PostRequest(AppRoutes):
 
     def __init__(self, route):
         """
-        Сохраняем значение переданного параметра
+        Сохраняет контроллер, который будет запускаться при запросе пути,
+        указанного в переменной 'route' при POST запросах
         """
 
         self.request_type = 'POST'
@@ -116,7 +124,7 @@ class NotFoundRequest(AppRoutes):
 
     def __init__(self, route):
         """
-        Сохраняем значение переданного параметра
+        Сохраняет контроллер, который будет запускаться по умолчанию, если путь не найден
         """
 
         self.request_type = '404'

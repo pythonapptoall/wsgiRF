@@ -5,12 +5,6 @@
 логгера
 """
 
-from copy import copy
-
-from ..common.settings import SETTINGS
-
-LOGGER_NAME = copy(SETTINGS['LOGGER_NAME'])
-
 
 class SingletonByName(type):
     """
@@ -63,12 +57,20 @@ class Logger(metaclass=SingletonByName):
         self.name = name
 
     @staticmethod
-    def get_logger():
+    def start_logger(name):
         """
         Возвращает ссылку на запущенный логгер или запускает его, если не был запущен
         """
 
-        return Logger(LOGGER_NAME)
+        return Logger(name)
+
+    @staticmethod
+    def get_logger(name):
+        """
+        Возвращает ссылку на запущенный логгер или запускает его, если не был запущен
+        """
+
+        return Logger(name)
 
     @staticmethod
     def log(text):

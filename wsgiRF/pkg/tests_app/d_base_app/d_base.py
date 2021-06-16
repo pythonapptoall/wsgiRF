@@ -8,11 +8,11 @@ from copy import copy
 import psycopg2
 from psycopg2 import Error
 
-from ..common.logger import Logger
-from ..common.settings import SETTINGS
+from ...common.logger import Logger
+from ..settings import SETTINGS
 
 D_BASE_SETTINGS = copy(SETTINGS)
-LOGGER = Logger.get_logger()
+LOGGER = Logger.start_logger(D_BASE_SETTINGS['LOGGER_NAME'])
 D_BASE_CONNECTION_SETTINGS = D_BASE_SETTINGS['D_BASE']
 
 

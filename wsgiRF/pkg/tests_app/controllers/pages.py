@@ -3,7 +3,7 @@
 по запросу
 """
 
-from .decorators.page import NotFoundRequest, GetRequest, PostRequest
+from controllers_app.decorators.page import NotFoundRequest, GetRequest, PostRequest
 
 
 @GetRequest(route="/")
