@@ -8,7 +8,7 @@ with open("requirements.txt", "r") as requirements_file:
 
 setup(
     name="wsgiRF",
-    version="1.0.4",
+    version="1.0.5",
     author="Sergey Sobakin",
     author_email="info@python.reviews",
     description="Configurable WSGI REST framework",
