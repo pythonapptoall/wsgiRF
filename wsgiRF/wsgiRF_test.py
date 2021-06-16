@@ -1,13 +1,13 @@
 """
 Модуль запускает пакет тестов для проекта
 """
+
 from copy import copy
 
-from .pkg.tests_app import tests
-from .pkg.common.settings import SETTINGS
+from .pkg.tests_app import tests, settings
 from .pkg.common.utils import Utils
 
-TEST_SETTINGS = copy(SETTINGS)
+TEST_SETTINGS = copy(settings)
 
 
 def form_path_for_test():
