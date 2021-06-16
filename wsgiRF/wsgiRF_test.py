@@ -3,9 +3,9 @@
 """
 from copy import copy
 
-from pkg.tests_app import tests
-from pkg.common.settings import SETTINGS
-from pkg.common.utils import Utils
+from .pkg.tests_app import tests
+from .pkg.common.settings import SETTINGS
+from .pkg.common.utils import Utils
 
 TEST_SETTINGS = copy(SETTINGS)
 
